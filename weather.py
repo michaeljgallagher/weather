@@ -7,8 +7,8 @@ from datetime import datetime
 def get_location():
     r = requests.get('https://ipinfo.io/json')
     data = r.json()
-    loc, city, region, country = data['loc'].split(','),
-    data['city'], data['region'], data['country']
+    loc, city, region, country = data['loc'].split(','),\
+        data['city'], data['region'], data['country']
     return loc, city, region, country
 
 
