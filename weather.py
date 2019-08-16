@@ -1,11 +1,16 @@
+#!/usr/bin/env python3
+
 import requests
 from datetime import datetime
+
 
 def get_location():
     r = requests.get('https://ipinfo.io/json')
     data = r.json()
-    loc, city, region, country = data['loc'].split(','), data['city'], data['region'], data['country']
+    loc, city, region, country = data['loc'].split(','),
+    data['city'], data['region'], data['country']
     return loc, city, region, country
+
 
 def get_weather(loc):
     url = 'https://api.openweathermap.org/data/2.5/weather'
@@ -14,8 +19,9 @@ def get_weather(loc):
               'lon': loc[1],
               'units': 'imperial'}
     r = requests.get(url, params=params)
-    data = r.json()  
+    data = r.json()
     return data
+
 
 def degrees_to_cardinal(deg):
     if deg >= 11.25 and deg < 33.75:
@@ -51,6 +57,7 @@ def degrees_to_cardinal(deg):
     else:
         return 'N'
 
+
 def display_weather(data):
     temp = data['main']['temp']
     cond = data['weather'][0]['main']
@@ -73,8 +80,10 @@ def display_weather(data):
     Humidity : {}%
     Forecast : {}
     Sunrise : {}, Sunset : {}
-    """.format(temp, cond, mintemp, maxtemp, wspeed, wdirec, wdeg, humidity, fc, sunrise, sunset)
+    """.format(temp, cond, mintemp, maxtemp, wspeed, wdirec, wdeg, humidity,
+               fc, sunrise, sunset)
           )
+
 
 def main():
     loc, city, region, country = get_location()
