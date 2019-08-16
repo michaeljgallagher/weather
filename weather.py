@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 def get_location():
     r = requests.get('https://ipinfo.io/json')
@@ -60,13 +61,19 @@ def display_weather(data):
     wdirec = degrees_to_cardinal(wdeg)
     humidity = data['main']['humidity']
     fc = data['weather'][0]['description'].capitalize()
+    tz = data['timezone']
+    sr = data['sys']['sunrise'] + tz
+    ss = data['sys']['sunset'] + tz
+    sunrise = datetime.utcfromtimestamp(sr).strftime('%H:%M')
+    sunset = datetime.utcfromtimestamp(ss).strftime('%H:%M')
     print("""
     Currently : {} F, {}
-    Min Temp: {}, Max Temp: {}
+    Min Temp: {} F, Max Temp: {} F
     Wind : {} MPH {} ({} degrees)
     Humidity : {}%
     Forecast : {}
-    """.format(temp, cond, mintemp, maxtemp, wspeed, wdirec, wdeg, humidity, fc)
+    Sunrise : {}, Sunset : {}
+    """.format(temp, cond, mintemp, maxtemp, wspeed, wdirec, wdeg, humidity, fc, sunrise, sunset)
           )
 
 def main():
