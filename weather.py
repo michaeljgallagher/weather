@@ -64,8 +64,12 @@ def display_weather(data):
     mintemp = data['main']['temp_min']
     maxtemp = data['main']['temp_max']
     wspeed = data['wind']['speed']
-    wdeg = data['wind']['deg']
-    wdirec = degrees_to_cardinal(wdeg)
+    if 'deg' in data['wind'].keys():
+        wdeg = data['wind']['deg']
+        wdirec = degrees_to_cardinal(wdeg)
+    else:
+        wdeg = ''
+        wdirec = ''
     humidity = data['main']['humidity']
     fc = data['weather'][0]['description'].capitalize()
     tz = data['timezone']
