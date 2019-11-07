@@ -68,8 +68,8 @@ def display_weather(data):
         wdeg = data['wind']['deg']
         wdirec = degrees_to_cardinal(wdeg)
     else:
-        wdeg = ''
-        wdirec = ''
+        wdeg = None
+        wdirec = None
     humidity = data['main']['humidity']
     fc = data['weather'][0]['description'].capitalize()
     tz = data['timezone']
